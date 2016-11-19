@@ -78,6 +78,10 @@ class Toggl():
         '''set the User-Agent setting, by default it's set to TogglPy'''
         self.user_agent = agent
 
+    def setWorkspaceId(self, wid):
+        '''set the workspaces id in class'''
+        self.wid = wid
+
     #------------------------------------------------------
     # Methods for directly requesting data from an endpoint
     #------------------------------------------------------
@@ -102,6 +106,7 @@ class Toggl():
             return urllib.request.urlopen(urllib.request.Request(endpoint, headers=self.headers)).read()
         else:
             data = json.JSONEncoder().encode(parameters)
+            data = data.encode('ascii')
             return urllib.request.urlopen(urllib.request.Request(endpoint, data=data, headers=self.headers)).read() # make request and read the response
 
     #----------------------------------
@@ -197,6 +202,22 @@ class Toggl():
                 if workspace['id'] == int(id):
                     return workspace # if we find it return it
             return None # if we get to here and haven't found it return None
+
+    def getWorkspaceProjects(self):
+        '''return all projects in the workspace'''
+        return self.request(Endpoints.WORKSPACES + "/" + str(self.wid) + "/projects")
+
+    def getWorkspaceProject(self, name):
+        """
+        Provide only a projects name for query and search through entire available names
+        :param name: WorkspaceId and Desired Project's name
+        :return: Project object
+        """
+        for project in self.getWorkspaceProjects():
+            if project['name'] == name:
+                return project
+        print('Could not find project by the name')
+        return None
 
     #--------------------------------
     # Methods for getting client data
