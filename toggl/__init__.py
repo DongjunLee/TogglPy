@@ -313,6 +313,10 @@ class Toggl():
 
     def getWeeklyReportPDF(self, data, filename):
         '''save a weekly report as a PDF'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         # get the raw pdf file data
         filedata = self.requestRaw(Endpoints.REPORT_WEEKLY + ".pdf", parameters=data)
 
@@ -326,6 +330,10 @@ class Toggl():
 
     def getDetailedReportPDF(self, data, filename):
         '''save a detailed report as a pdf'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         # get the raw pdf file data
         filedata = self.requestRaw(Endpoints.REPORT_DETAILED + ".pdf", parameters=data)
 
@@ -339,6 +347,10 @@ class Toggl():
 
     def getSummaryReportPDF(self, data, filename):
         '''save a summary report as a pdf'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         # get the raw pdf file data
         filedata = self.requestRaw(Endpoints.REPORT_SUMMARY + ".pdf", parameters=data)
 
