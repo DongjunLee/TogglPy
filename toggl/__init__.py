@@ -309,6 +309,10 @@ class Toggl():
     #---------------------------------
     def getWeeklyReport(self, data):
         '''return a weekly report for a user'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         return self.request(Endpoints.REPORT_WEEKLY, parameters=data)
 
     def getWeeklyReportPDF(self, data, filename):
@@ -326,6 +330,10 @@ class Toggl():
 
     def getDetailedReport(self, data):
         '''return a detailed report for a user'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         return self.request(Endpoints.REPORT_DETAILED, parameters=data)
 
     def getDetailedReportPDF(self, data, filename):
@@ -343,6 +351,10 @@ class Toggl():
 
     def getSummaryReport(self, data):
         '''return a summary report for a user'''
+
+        if 'workspace_id' not in data:
+            data['workspace_id'] = self.wid
+
         return self.request(Endpoints.REPORT_SUMMARY, parameters=data)
 
     def getSummaryReportPDF(self, data, filename):
