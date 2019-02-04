@@ -17,6 +17,7 @@ import json
 class Endpoints():
     WORKSPACES = "https://www.toggl.com/api/v8/workspaces"
     CLIENTS = "https://www.toggl.com/api/v8/clients"
+    USERS = "https://www.toggl.com/api/v8/me"
     PROJECTS = "https://www.toggl.com/api/v8/projects"
     REPORT_WEEKLY = "https://toggl.com/reports/api/v2/weekly"
     REPORT_DETAILED = "https://toggl.com/reports/api/v2/details"
@@ -296,6 +297,13 @@ class Toggl():
             return None
 
         return self.getProject(pid)
+
+    # --------------------------------
+    # Methods for getting USERS data
+    # --------------------------------
+    def getUsers(self):
+        '''return user properties'''
+        return self.request(f"{Endpoints.USERS}?with_related_data=true" )
 
     # --------------------------------
     # Methods for getting PROJECTS data
